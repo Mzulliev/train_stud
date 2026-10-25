@@ -1,0 +1,62 @@
+{
+    "ships": [
+        {
+            "id": 1,
+            "name": "Titanic",
+            "type": "Пассажирский"
+        },
+        {
+            "id": 2,
+            "name": "Астория",
+            "type": "Пассажирский"
+        },
+        {
+            "id": 3,
+            "name": "Дон",
+            "type": "Круизный"
+        }
+    ],
+    "сabins": [
+        {
+            "id": 1,
+            "ship_id": 1,
+            "cabin_number": "A101",
+            "class_type": "Люкс",
+            "capacity": 2,
+            "status": "Свободна"
+        },
+        {
+            "id": 2,
+            "ship_id": 1,
+            "cabin_number": "A102",
+            "class_type": "Стандарт",
+            "capacity": 4,
+            "status": "Опалчен"
+        },
+        {
+            "id": 3,
+            "ship_id": 2,
+            "cabin_number": "A103",
+            "class_type": "Стандарт",
+            "capacity": 4,
+            "status": "Опалчен"
+        }
+    ],
+    "bookings": [
+        {
+            "id": 1,
+            "cabin_id": 1,
+            "guest_name": "Иван Иванов",
+            "booking_date": "2026-06-01",
+            "total_price": 15000.0
+        },
+        {
+            "id": 2,
+            "cabin_id": 2,
+            "guest_name": "Иван Петров",
+            "booking_date": "2026-06-02",
+            "total_price": 20000.0
+        }
+    ],
+    "cabins": []
+}
