@@ -231,45 +231,58 @@ class MainWindow(QMainWindow):
         return widget
 
     def _filter_cabins(self):
-        '''Фильтрует каюты по поисковой строке и выпадающему списку статусов'''
-        # 1. получаем строку поиска в нижнем регистре
-        # query = self.cabins_search.text().lower()
+        query = self.cabins_search.text().lower()
+        status_filter = self.cabins_status_filter.currentText()
 
+        filtered = []
+        for cabin in self.dm.get_cabins():
+            # Если выбран конкретный статус и он не совпадает — пропускаем
+            if status_filter != "Все" and cabin["status"] != status_filter:
+                continue
 
-        # 2. Получаем выбранный статус из фильтра
-        # status_filter - self.cabins_status_filter.currentText()
+            ship_name = self.dm.get_ship_name(cabin["ship_id"])
+            searchable = f"{cabin['cabin_number']} {cabin['class_type']} {ship_name} {cabin['status']}".lower()
 
-        # 3. Создаем пустой список для отфильтрованных кают
-        # filtered = []
+            # Если в поиске что-то введено и этого нет в строке — пропускаем
+            if query and query not in searchable:
+                continue
 
-        # 4. Проходим по все каютам из базы через self.dm.get_cabins():
-        print(self.dm.get_cabins())
-        # for cabin in ...:
-        #     5. проверка статуса: если status_filter != 'Все' и стутс каюты не равен status_filter - пропускаем (continue)
-        #     if ...
-        #         continue
+            filtered.append(cabin)
 
-        #     6. Получаем имя кораблля через self.dm.get_ship_name(cabin["ship_id"])
-        #     ship_name = ...
-
-        #     7. Формируем строку для поиска: номер, класс, имя корабля и статус
-        #     searchable = f"{cabin['cabin_number']} {cabin['class_type']} {ship_name} {cabin['status']}".lower()
-
-        #     8. Проверка поиска: если query не пустой и его нет в searchable - пропускаем (continue)
-        #     if query and query not in searchable:
-        #         continue
-
-        #     9. Если каюта подошла под все фильтры - добавляем ее в список
-        #     filtered.append(cabin)
-
-        # 10. Передаем отфильтрованный список на отрисовку: self._fill_cabins_table(filtered)
-        
+        self._fill_cabins_table(filtered)
 
     def _fill_cabins_table(self, cabins):
-        pass
+        self.cabins_table.setRowCount(0)
+        for cabin in cabins:
+            row = self.cabins_table.rowCount()
+            self.cabins_table.insertRow(row)
 
-    def _refresh_cabins(self): # исправил slef -> self
-        pass
+            ship_name = self.dm.get_ship_name(cabin["ship_id"])
+            items = [
+                str(cabin["id"]),
+                ship_name,
+                cabin["cabin_number"],
+                cabin["class_type"],
+                str(cabin["capacity"]),
+                cabin["status"]
+            ]
+
+            for col, text in enumerate(items):
+                item = QTableWidgetItem(text)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                if col == 5:
+                    color = STATUS_COLORS.get(cabin["status"])
+                    if color:
+                        item.setBackground(color)
+                self.cabins_table.setItem(row, col, item)
+
+        self.cabins_table.resizeColumnsToContents()
+
+
+
+    def _refresh_cabins(self):
+        self._filter_cabins()
+
 
 
 
