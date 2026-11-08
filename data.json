@@ -16,7 +16,7 @@
             "type": "Круизный"
         }
     ],
-    "сabins": [
+    "cabins": [
         {
             "id": 1,
             "ship_id": 1,
@@ -57,6 +57,5 @@
             "booking_date": "2026-06-02",
             "total_price": 20000.0
         }
-    ],
-    "cabins": []
+    ]
 }
