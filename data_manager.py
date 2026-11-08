@@ -243,6 +243,3 @@ class DataManager:
 
 
 
-dm = DataManager()
-dm.load_data()
-print(dm.get_ships())

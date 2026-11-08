@@ -231,6 +231,41 @@ class MainWindow(QMainWindow):
         return widget
 
     def _filter_cabins(self):
+        '''Фильтрует каюты по поисковой строке и выпадающему списку статусов'''
+        # 1. получаем строку поиска в нижнем регистре
+        # query = self.cabins_search.text().lower()
+
+
+        # 2. Получаем выбранный статус из фильтра
+        # status_filter - self.cabins_status_filter.currentText()
+
+        # 3. Создаем пустой список для отфильтрованных кают
+        # filtered = []
+
+        # 4. Проходим по все каютам из базы через self.dm.get_cabins():
+        print(self.dm.get_cabins())
+        # for cabin in ...:
+        #     5. проверка статуса: если status_filter != 'Все' и стутс каюты не равен status_filter - пропускаем (continue)
+        #     if ...
+        #         continue
+
+        #     6. Получаем имя кораблля через self.dm.get_ship_name(cabin["ship_id"])
+        #     ship_name = ...
+
+        #     7. Формируем строку для поиска: номер, класс, имя корабля и статус
+        #     searchable = f"{cabin['cabin_number']} {cabin['class_type']} {ship_name} {cabin['status']}".lower()
+
+        #     8. Проверка поиска: если query не пустой и его нет в searchable - пропускаем (continue)
+        #     if query and query not in searchable:
+        #         continue
+
+        #     9. Если каюта подошла под все фильтры - добавляем ее в список
+        #     filtered.append(cabin)
+
+        # 10. Передаем отфильтрованный список на отрисовку: self._fill_cabins_table(filtered)
+        
+
+    def _fill_cabins_table(self, cabins):
         pass
 
     def _refresh_cabins(self): # исправил slef -> self
@@ -245,4 +280,4 @@ class MainWindow(QMainWindow):
     def _refresh_bookings(self):
         pass
 
-    
+
